@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
+
 
 public class MainLoop {
     private volatile boolean running = true;
@@ -12,6 +12,8 @@ public class MainLoop {
     private final Thread mainLoopThread;
 
     private final PixelRenderer renderer;
+
+    final double FIXED_DT = 1.0 / 60.0; // сек на один шаг симуляции
 
     private volatile int ticks = 0;
 
@@ -29,18 +31,28 @@ public class MainLoop {
         });
 
         this.task = () -> {
+            long lastTime = System.nanoTime();
+            double accumulator = 0.0;
             while (running) {
-                update(this.window);
+                long newTime = System.nanoTime();
+                accumulator += (newTime - lastTime) / 1_000_000_000.0; // делим, чтобы перевести наносекунды в секунды
 
-                this.colorPanel.repaint();
+                while (accumulator >= FIXED_DT) {
+                    Simulation.step(FIXED_DT);
+                    accumulator -= FIXED_DT;
+                }
 
                 try {
-                    Thread.sleep(16);
-                } catch (InterruptedException e) { // Сами проверяем что поток не прерван
+                    Thread.sleep((int) Math.floor((FIXED_DT - ((newTime - lastTime) / 1_000_000_000.0)) * 1000.0));
+                } catch (InterruptedException e) {
                     running = false;
                     Thread.currentThread().interrupt();
                 }
 
+                render(this.window);
+                this.colorPanel.repaint();
+
+                lastTime = System.nanoTime();
                 ticks++;
             }
         };
@@ -53,7 +65,7 @@ public class MainLoop {
         return mainLoopThread;
     }
 
-    private void update(JFrame window) {
+    private void render(JFrame window) {
         SwingUtilities.invokeLater(() -> {
             window.setTitle(Integer.toString(ticks));
         });
