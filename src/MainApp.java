@@ -10,6 +10,14 @@ public class MainApp {
             window.add(panel);
             window.setSize(500, 400);
             window.setVisible(true);
+
+            PixelGrid mainGrid = new PixelGrid(320, 180);
+            mainGrid.setPixel(100, 100, (byte) 1);
+            mainGrid.setPixel(120, 110, (byte) 1);
+            mainGrid.setPixel(150, 80, (byte) 1);
+            PixelRenderer mainRenderer = new PixelRenderer(mainGrid);
+
+            MainLoop mainLoop = new MainLoop(window, panel, mainRenderer);
         });
     }
 }
