@@ -43,7 +43,7 @@ public class MainLoop {
                 }
 
                 try {
-                    Thread.sleep((int) Math.floor((FIXED_DT - ((newTime - lastTime) / 1_000_000_000.0)) * 1000.0));
+                    Thread.sleep(Math.max((int) Math.floor((FIXED_DT - ((newTime - lastTime) / 1_000_000_000.0)) * 1000.0), 0));
                 } catch (InterruptedException e) {
                     running = false;
                     Thread.currentThread().interrupt();
