@@ -9,7 +9,7 @@ public class PixelGrid {
         this.grid = new byte[sizeX][sizeY];
     }
 
-    public byte getPixel(int x, int y) {
+    public synchronized byte getPixel(int x, int y) {
         if (inBounds(x, y)) {
             return grid[x][y];
         }
@@ -18,7 +18,7 @@ public class PixelGrid {
         }
     }
 
-    public boolean setPixel(int x, int y, byte value) {
+    public synchronized boolean setPixel(int x, int y, byte value) {
         if (inBounds(x, y)) {
             grid[x][y] = value;
             return true;
