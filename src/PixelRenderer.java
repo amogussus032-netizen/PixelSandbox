@@ -32,4 +32,8 @@ public class PixelRenderer {
             default: return Color.MAGENTA.getRGB();
         }
     }
+
+    public PixelGrid getPixelGrid() {
+        return pixelGrid;
+    }
 }
