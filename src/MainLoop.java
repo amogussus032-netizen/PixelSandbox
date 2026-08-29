@@ -36,9 +36,10 @@ public class MainLoop {
             while (running) {
                 long newTime = System.nanoTime();
                 accumulator += (newTime - lastTime) / 1_000_000_000.0; // делим, чтобы перевести наносекунды в секунды
+                lastTime = System.nanoTime();
 
                 while (accumulator >= FIXED_DT) {
-                    Simulation.step(FIXED_DT);
+                    Simulation.step(FIXED_DT, renderer.getPixelGrid());
                     accumulator -= FIXED_DT;
                 }
 
@@ -54,7 +55,6 @@ public class MainLoop {
                     Thread.currentThread().interrupt();
                 }
 
-                lastTime = System.nanoTime();
                 ticks++;
             }
         };
