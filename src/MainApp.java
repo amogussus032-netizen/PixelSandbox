@@ -23,6 +23,5 @@ public class MainApp {
         mainGrid.setPixel(120, 110, (byte) 1);
         mainGrid.setPixel(150, 80, (byte) 1);
 
-
     }
 }
