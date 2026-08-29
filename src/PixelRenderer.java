@@ -28,7 +28,7 @@ public class PixelRenderer {
     private int byteToRGB(byte material) {
         switch (material) {
             case 0: return Color.GRAY.getRGB();
-            case 1: return Color.BLACK.getRGB();
+            case 1: return Color.YELLOW.getRGB();
             default: return Color.MAGENTA.getRGB();
         }
     }
