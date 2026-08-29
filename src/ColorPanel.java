@@ -11,22 +11,23 @@ public class ColorPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Super означает вызов оригинального метода(без оверрайд). Оригинальный метод заливает фоновым цветом\очищает холст.
+        BufferedImage image = imageToDraw;
 
-        if (imageToDraw == null) return;
+        if (image == null) return;
 
-        double scaleX = (double) getWidth() / imageToDraw.getWidth();
-        double scaleY = (double) getHeight() / imageToDraw.getHeight();
+        double scaleX = (double) getWidth() / image.getWidth();
+        double scaleY = (double) getHeight() / image.getHeight();
         scale = (int) Math.min(scaleX, scaleY); // один коэффициент чтобы пиксели сохранили квадратность
 
-        int drawWidth = (int) (imageToDraw.getWidth() * scale);
-        int drawHeight = (int) (imageToDraw.getHeight() * scale);
+        int drawWidth = (int) (image.getWidth() * scale);
+        int drawHeight = (int) (image.getHeight() * scale);
         offsetX = (getWidth() - drawWidth) / 2;
         offsetY = (getHeight() - drawHeight) / 2; // считаем где рисовать изображение так как из-за одного коэффициента возникают пустые поля
 
         Graphics2D g2D = (Graphics2D) g;
         g2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR); // настраиваем растяжение без размытия
 
-        g2D.drawImage(imageToDraw, offsetX, offsetY, drawWidth, drawHeight, null);
+        g2D.drawImage(image, offsetX, offsetY, drawWidth, drawHeight, null);
     }
 
     public ColorPanel(String name) {
