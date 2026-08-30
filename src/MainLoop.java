@@ -13,7 +13,7 @@ public class MainLoop {
 
     private final PixelRenderer renderer;
 
-    final double FIXED_DT = 1.0 / 60.0; // сек на один шаг симуляции
+    final double FIXED_DT = 1.0 / 90.0; // сек на один шаг симуляции
 
     private volatile int ticks = 0;
 
