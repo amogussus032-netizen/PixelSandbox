@@ -19,12 +19,7 @@ public class Simulation {
             shuffleArray(xSimulationOrder);
 
             for (int x : xSimulationOrder) {
-                if (simulatedGrid.getPixel(x, y) == (byte) 1) {
-                    if (simulatedGrid.getPixel(x, y + 1) == (byte) 0) {
-                        simulatedGrid.setPixel(x, y, (byte) 0);
-                        simulatedGrid.setPixel(x, y + 1, (byte) 1);
-                    }
-                }
+                sandSimulation(x, y, simulatedGrid);
             }
         }
     }
@@ -35,6 +30,35 @@ public class Simulation {
             int temp = array[i];
             array[i] = array[j];
             array[j] = temp;
+        }
+    }
+
+    private static void sandSimulation(int x, int y, PixelGrid simulatedGrid) {
+        if (simulatedGrid.getPixel(x, y) == (byte) 1) {
+            if (simulatedGrid.getPixel(x, y + 1) == (byte) 0) {
+                simulatedGrid.swapPixels(x, y, x, y + 1);
+                return;
+            }
+
+            byte bottomLeftPixel = simulatedGrid.getPixel(x - 1, y + 1);
+            byte bottomRightPixel = simulatedGrid.getPixel(x + 1, y + 1);
+
+            if (random.nextInt(101) < 75) {
+
+                if (bottomLeftPixel == 0 && bottomRightPixel == 0) {
+                    if (random.nextInt(2) == 0) {
+                        simulatedGrid.swapPixels(x, y, x - 1, y + 1);
+                    } else {
+                        simulatedGrid.swapPixels(x, y, x + 1, y + 1);
+                    }
+                } else if (bottomLeftPixel == 0) {
+                    simulatedGrid.swapPixels(x, y, x - 1, y + 1);
+                } else if (bottomRightPixel == 0) {
+                    simulatedGrid.swapPixels(x, y, x + 1, y + 1);
+                } else {
+
+                }
+            }
         }
     }
 }
