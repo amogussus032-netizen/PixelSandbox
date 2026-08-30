@@ -28,6 +28,18 @@ public class PixelGrid {
         }
     }
 
+    public synchronized boolean swapPixels(int x1, int y1, int x2, int y2) {
+        if (inBounds(x1, y1) && inBounds(x2, y2)) {
+            byte buffer = getPixel(x1, y1);
+            setPixel(x1, y1, getPixel(x2, y2));
+            setPixel(x2, y2, buffer);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     private boolean inBounds(int x, int y) {
         return x < sizeX && y < sizeY && x >= 0 && y >= 0;
     }
