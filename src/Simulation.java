@@ -34,14 +34,14 @@ public class Simulation {
     }
 
     private static void sandSimulation(int x, int y, PixelGrid simulatedGrid) {
-        if (simulatedGrid.getPixel(x, y) == (byte) 1) {
-            if (simulatedGrid.getPixel(x, y + 1) == (byte) 0) {
+        if (simulatedGrid.getMaterial(x, y) == 1) {
+            if (simulatedGrid.getMaterial(x, y + 1) == 0) {
                 simulatedGrid.swapPixels(x, y, x, y + 1);
                 return;
             }
 
-            byte bottomLeftPixel = simulatedGrid.getPixel(x - 1, y + 1);
-            byte bottomRightPixel = simulatedGrid.getPixel(x + 1, y + 1);
+            int bottomLeftPixel = simulatedGrid.getMaterial(x - 1, y + 1);
+            int bottomRightPixel = simulatedGrid.getMaterial(x + 1, y + 1);
 
             if (random.nextInt(101) < 75) {
 
