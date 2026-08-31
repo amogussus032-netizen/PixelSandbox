@@ -35,9 +35,9 @@ public class PixelRenderer {
             }
             case 1: {
                 switch (variant) {
-                    case 0: return RGBAtoInt(209, 192, 105, 255);
-                    case 1: return RGBAtoInt(219, 201, 110, 255);
-                    case 2: return RGBAtoInt(199, 182, 99,  255);
+                    case 0: return RGBAtoInt(237, 170, 92, 255);
+                    case 1: return RGBAtoInt(219, 165, 77, 255);
+                    case 2: return RGBAtoInt(217, 159, 65, 255);
                 }
             }
             default: {
